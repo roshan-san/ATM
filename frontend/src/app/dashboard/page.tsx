@@ -1,10 +1,12 @@
 "use client"
+import { InputOTP,InputOTPGroup, InputOTPSlot,}from '@/components/ui/input-otp'
 import React, { useState } from 'react'
 import { MenuItem } from './_components/menu-item'
 
 export default function page() {
   const [Authenticated,setAuthenticated]= useState(true)
-  return (<div>
+  return (<div className=' flex flex-col text-center space-y-6'>
+    <p className='font-bold'>CHOOSE OPTION</p>
 
     {Authenticated ? (
       <div className=' flex flex-col text-center space-y-6'> 
@@ -15,9 +17,17 @@ export default function page() {
     </div>
       
     ):(
-      <div>
-        hello
-      </div>
+      <div className="text-center justify-center">
+        <InputOTP maxLength={4}>
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+          <InputOTPSlot index={3} />
+        </InputOTPGroup>
+</InputOTP>
+
+    </div>
   )}
   </div>
   )

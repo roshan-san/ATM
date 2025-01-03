@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import model
-from config import engine
+import backend.app.model as model
+from backend.app.config import engine
 model.Base.metadata.create_all(bind=engine)
 
 
@@ -18,10 +18,9 @@ app.add_middleware(
 )
 
 
-@app.get("/withdraw/{amount}")
-async def withdraw():
-   
-   return {"withdraw": "success"}
+@app.get("/withdraw/")
+async def withdraw(card:Card ):
+   return {"withdraw": amount}
 
 @app.get("/balance")
 async def balance():

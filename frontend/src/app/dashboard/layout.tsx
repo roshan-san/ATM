@@ -38,10 +38,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Slot */}
           <div className="flex justify-evenly items-center w-full space-x-4">
-            <p className="text-white font-semibold">Insert card:</p>
+            <p className="text-white font-semibold">card slot:</p>
             <div
-              className={`w-44 h-4 hover:scale-75 border-2 rounded-lg transition-all duration-300 ease-in-out transform ${
-                mounted ? 'border-white bg-red-600 scale-110 shadow-xl' : 'border-white bg-gray-800'
+              className={`w-24 h-4 hover:scale-110 border-2 rounded-lg transition-all duration-300 ease-in-out transform ${
+                mounted ? 'border-white bg-red-600 w-36 shadow-xl' : 'border-white bg-gray-800'
               }`}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
