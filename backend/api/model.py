@@ -1,11 +1,9 @@
-from backend.app.config import Base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
+from database import Base
 
-class Card (Base):
+class Card(Base):
     __tablename__ = "bankdata"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String).nullable = False
-    pin = Column(Integer).unique = True
-    cardno = Column(Integer).unique = True
-    balance = Column(Integer)
-
+    name = Column(String, unique=True,nullable=False)
+    pin = Column(Integer, nullable=False)
+    balance = Column(Integer,default=0)
