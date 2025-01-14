@@ -1,14 +1,17 @@
 "use client"
-import React, { useEffect, useState } from 'react'; // Adjust the path based on the file location
-import { Loading } from '../_components/loading';
+import React, { useEffect, useState } from 'react'; 
+import { Loading } from '../_components/loading';  // Assuming you have a Loading component
 
 export default function Page() {
-  const [balance, setBalance] = useState(0); // State to store the balance
+  const [balance, setBalance] = useState(0); 
+  const [loading, setLoading] = useState(true); // State for loading
+  const userId = 1;
 
   useEffect(() => {
     const fetchBalance = async () => {
+      setLoading(true);  // Set loading to true before the request
       try {
-        const response = await fetch('http://127.0.0.1:8000/balance'); 
+        const response = await fetch(`http://127.0.0.1:8000/check-balance/${userId}`); 
         if (response.ok) {
           const data = await response.json();
           setBalance(data.balance);
@@ -17,15 +20,21 @@ export default function Page() {
         }
       } catch (error) {
         console.error('Error fetching balance:', error);
+      } finally {
+        setLoading(false);  // Set loading to false after the request is completed
       }
     };
 
     fetchBalance();
-  }, []);
+  }, [userId]);
 
   return (
-    <div className="text-center justify-center">
-        <p>Available Balance: {balance}</p>
+    <div className='flex items-center justify-center pt-16' >
+      {loading ? (
+        <Loading /> // Assuming you have a Loading component to show while loading
+      ) : (
+        <p>Available Balance: {balance}</p> // Display the balance once loading is complete
+      )}
     </div>
   );
 }
