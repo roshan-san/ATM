@@ -1,4 +1,3 @@
-import { Mode } from "@/components/Mode";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

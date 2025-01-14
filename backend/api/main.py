@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from models import WithdrawRequest, ChangePinRequest
+from models import WithdrawRequest, ChangePinRequest,LoginRequest
 
 DATABASE_URL = "postgresql://neondb_owner:MGe5NDF3crZt@ep-fragrant-snow-a5vl0sw6.us-east-2.aws.neon.tech/neondb?sslmode=require"
 
@@ -62,3 +62,13 @@ def check_balance(user_id: int, db=Depends(get_db_connection)):
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
         return {"user_id": user_id, "balance": user["balance"]}
+    
+@app.post("/checkpass")
+def check_pass(request: LoginRequest, db=Depends(get_db_connection)):
+    with db.cursor() as cursor:
+        # Correct tuple formatting for query parameters
+        cursor.execute("SELECT pin FROM users WHERE id = %s", (request.user_id,))
+        user = cursor.fetchone()
+        if user and user["pin"] == request.pin:  # Ensure user exists before accessing "pin"
+            return {"auth": True}
+        return {"auth": False}

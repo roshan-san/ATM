@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { Loading } from "../_components/loading";
+import { BASE_URL } from '@/lib/backend';
 
 export default function WithdrawPage() {
   const [amount, setAmount] = useState(0);
@@ -19,7 +20,7 @@ export default function WithdrawPage() {
     setMessage('');
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/withdraw', {
+      const response = await fetch(`${BASE_URL}/withdraw`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

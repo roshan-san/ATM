@@ -1,17 +1,18 @@
 "use client"
 import React, { useEffect, useState } from 'react'; 
-import { Loading } from '../_components/loading';  // Assuming you have a Loading component
+import { Loading } from '../_components/loading'; 
+import { BASE_URL } from '@/lib/backend';
 
 export default function Page() {
   const [balance, setBalance] = useState(0); 
-  const [loading, setLoading] = useState(true); // State for loading
+  const [loading, setLoading] = useState(true); 
   const userId = 1;
 
   useEffect(() => {
     const fetchBalance = async () => {
-      setLoading(true);  // Set loading to true before the request
+      setLoading(true);  
       try {
-        const response = await fetch(`http://127.0.0.1:8000/check-balance/${userId}`); 
+        const response = await fetch(`${BASE_URL}/check-balance/${userId}`); 
         if (response.ok) {
           const data = await response.json();
           setBalance(data.balance);
@@ -21,7 +22,7 @@ export default function Page() {
       } catch (error) {
         console.error('Error fetching balance:', error);
       } finally {
-        setLoading(false);  // Set loading to false after the request is completed
+        setLoading(false); 
       }
     };
 
@@ -31,9 +32,9 @@ export default function Page() {
   return (
     <div className='flex items-center justify-center pt-16' >
       {loading ? (
-        <Loading /> // Assuming you have a Loading component to show while loading
+        <Loading /> 
       ) : (
-        <p>Available Balance: {balance}</p> // Display the balance once loading is complete
+        <p>Available Balance: {balance}</p> 
       )}
     </div>
   );

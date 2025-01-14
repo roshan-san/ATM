@@ -8,3 +8,6 @@ class ChangePinRequest(BaseModel):
 class WithdrawRequest(BaseModel):
     user_id: int
     amount: float
+class LoginRequest(BaseModel):
+    user_id: int
+    pin: float

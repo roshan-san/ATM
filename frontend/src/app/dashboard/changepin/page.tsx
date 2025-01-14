@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
+import { BASE_URL } from '@/lib/backend';
 import React, { useRef, useState, useEffect } from 'react'
 
 export default function Page() {
@@ -14,9 +15,9 @@ export default function Page() {
 
   async function handleSubmit() {
     setLoading(true);
-    setMessage(''); // Reset previous message before submitting a new one
+    setMessage(''); 
     try {
-      const response = await fetch('http://127.0.0.1:8000/change-pin', {
+      const response = await fetch(`${BASE_URL}/change-pin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,7 +48,6 @@ export default function Page() {
 
   useEffect(() => {
     if (newpin.length === 4) {
-      console.log('New PIN:', newpin);
     }
   }, [newpin]);
 
@@ -88,7 +88,7 @@ export default function Page() {
         <Button
           className="bg-green-500 hover:-translate-y-2"
           onClick={handleSubmit}
-          disabled={loading} // Disable the button while loading
+          disabled={loading} 
         >
           {loading ? 'Submitting...' : 'Submit'}
         </Button>
