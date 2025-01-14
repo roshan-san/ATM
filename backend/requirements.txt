@@ -1,6 +1,4 @@
 uvicorn
 fastapi
-sqlalchemy
 psycopg2
 pydantic
-passlib
